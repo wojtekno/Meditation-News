@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp">
+    android:layout_height="72dp"
+    android:layout_gravity="center_vertical"
+    android:background="@color/myFourthColor"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
 
     <LinearLayout
+        style="@style/text_margin"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
+            style="@style/text_colors"
             android:id="@+id/section_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="3" />
 
         <TextView
+            style="@style/text_colors"
             android:id="@+id/author_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -22,31 +30,37 @@
 
     <TextView
         android:id="@+id/title_tv"
+        style="@style/text_margin"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:ellipsize="end"
-        android:maxLines="2"
-        android:text="Title is here"
+        android:maxLines="3"
+        android:text="Title is here so there is a lot of text and we would like to now what it does"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <LinearLayout
-        android:layout_width="0dp"
+        style="@style/text_margin"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/year_tv"
-            android:layout_width="wrap_content"
+            style="@style/text_colors"
+            android:id="@+id/month_tv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date like this one"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
-            android:id="@+id/month_tv"
+            style="@style/text_colors"
+            android:id="@+id/year_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Date like this one"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
     </LinearLayout>
 
 </LinearLayout>

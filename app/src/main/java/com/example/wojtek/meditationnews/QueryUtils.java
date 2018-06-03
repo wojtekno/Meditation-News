@@ -49,10 +49,17 @@ public final class QueryUtils {
                 String title = resultObject.getString("webTitle");
                 String url = resultObject.getString("webUrl");
                 String date = resultObject.getString("webPublicationDate");
-//                String author = resultObject.getString("author");
-                String sectionName = resultObject.getString("sectionName");
+                String author = null;
+                if (resultObject.has("author")){
+                    author = resultObject.getString("author");
+                }
+                String sectionName = null;
+                if (resultObject.has("sectionName")){
+                    sectionName = resultObject.getString("sectionName");
+                }
 
-                newsObjectList.add(new NewsObject(title, url, date, sectionName));
+
+                newsObjectList.add(new NewsObject(title, url, date, sectionName, author));
             }
 
         } catch (JSONException e) {

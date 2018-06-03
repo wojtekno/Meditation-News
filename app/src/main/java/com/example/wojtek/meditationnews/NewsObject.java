@@ -43,6 +43,13 @@ public class NewsObject {
        return mDate;
     }
 
+    public String getmSectionName() {
+        return mSectionName;
+    }
+
+    public String getmAuthor() {
+        return mAuthor;
+    }
 
     public String printDate() throws ParseException {
         int length = mDate.length();

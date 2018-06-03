@@ -44,11 +44,20 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
         TextView monthTV = newsListItem.findViewById(R.id.month_tv);
         monthTV.setText(getMonthAndDayToPrint(cDate));
 
+        TextView sectionNameTV = newsListItem.findViewById(R.id.section_tv);
+        sectionNameTV.setText(currentNewsObject.getmSectionName());
+        TextView authorTV = newsListItem.findViewById(R.id.author_tv);
+        if(currentNewsObject.getmAuthor() == null) {
+            authorTV.setVisibility(View.GONE);
+        } else {
+            authorTV.setVisibility(View.VISIBLE);
+            authorTV.setText(currentNewsObject.getmAuthor());
+        }
+
         return newsListItem;
     }
 
     private String getYearToPrint(String mDate) {
-        int length = mDate.length();
         String year = mDate.substring(0, 4);
         return year;
     }
