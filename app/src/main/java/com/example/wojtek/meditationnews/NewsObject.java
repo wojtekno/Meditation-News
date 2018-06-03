@@ -12,13 +12,23 @@ public class NewsObject {
     private String mTitle;
     private String mUrl;
     private String mDate;
-    private Date mDateDate;
+    private String mSectionName;
+    private String mAuthor;
 
-    public NewsObject(String title, String url, String date) {
+    public NewsObject(String title, String url, String date, String sectionName) {
         mTitle = title;
         mUrl = url;
         mDate = date;
+        mSectionName = sectionName;
 
+    }
+
+    public NewsObject(String title, String url, String date, String sectionName, String author) {
+        mTitle = title;
+        mUrl = url;
+        mDate = date;
+        mSectionName = sectionName;
+        mAuthor = author;
     }
 
     public String getmTitle() {
@@ -30,16 +40,7 @@ public class NewsObject {
     }
 
     public String getmDate() {
-        int length = mDate.length();
-        String sDate1= mDate.substring(0, length-1);
-        Date date1= null;
-        try {
-            date1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(sDate1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM/dd/yyyy");
-        return formatter.format(date1);
+       return mDate;
     }
 
 

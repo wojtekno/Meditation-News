@@ -49,8 +49,10 @@ public final class QueryUtils {
                 String title = resultObject.getString("webTitle");
                 String url = resultObject.getString("webUrl");
                 String date = resultObject.getString("webPublicationDate");
+//                String author = resultObject.getString("author");
+                String sectionName = resultObject.getString("sectionName");
 
-                newsObjectList.add(new NewsObject(title, url, date));
+                newsObjectList.add(new NewsObject(title, url, date, sectionName));
             }
 
         } catch (JSONException e) {

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class NewsAdapter extends ArrayAdapter<NewsObject> {
@@ -31,13 +33,36 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
             newsListItem = LayoutInflater.from(getContext()).inflate(R.layout.news_list_item, parent, false);
         }
         NewsObject currentNewsObject = getItem(position);
+        String cDate = currentNewsObject.getmDate();
 
         TextView titleTV = newsListItem.findViewById(R.id.title_tv);
         titleTV.setText(currentNewsObject.getmTitle());
 
-        TextView dateTV = newsListItem.findViewById(R.id.date_tv);
-        dateTV.setText(currentNewsObject.getmDate());
+        TextView yearTV = newsListItem.findViewById(R.id.year_tv);
+        yearTV.setText(getYearToPrint(cDate));
+
+        TextView monthTV = newsListItem.findViewById(R.id.month_tv);
+        monthTV.setText(getMonthAndDayToPrint(cDate));
 
         return newsListItem;
+    }
+
+    private String getYearToPrint(String mDate) {
+        int length = mDate.length();
+        String year = mDate.substring(0, 4);
+        return year;
+    }
+
+    private String getMonthAndDayToPrint(String mDate) {
+        int length = mDate.length();
+        String sDate1 = mDate.substring(0, length - 1);
+        Date date1 = null;
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(sDate1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM/dd");
+        return formatter.format(date1);
     }
 }
