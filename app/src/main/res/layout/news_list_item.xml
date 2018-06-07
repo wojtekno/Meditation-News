@@ -1,65 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:background="@color/myFourthColor"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp">
+    android:maxHeight="72dp"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp">
 
     <LinearLayout
         style="@style/text_margin"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            style="@style/text_colors"
             android:id="@+id/section_tv"
-            android:layout_width="match_parent"
+            style="@style/text_color_second"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="3" />
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Bring your style to workplace" />
 
         <TextView
-            style="@style/text_colors"
             android:id="@+id/author_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            style="@style/text_color_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/month_tv"
+            style="@style/text_color_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
     </LinearLayout>
 
     <TextView
         android:id="@+id/title_tv"
-        style="@style/text_margin"
-        android:layout_width="0dp"
+        style="@style/text_main_style"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_weight="3"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="2"
         android:text="Title is here so there is a lot of text and we would like to now what it does"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <LinearLayout
         style="@style/text_margin"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            style="@style/text_colors"
-            android:id="@+id/month_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
-            style="@style/text_colors"
             android:id="@+id/year_tv"
+            style="@style/text_color_second"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Date like this one"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:visibility="gone" />
 
     </LinearLayout>
 

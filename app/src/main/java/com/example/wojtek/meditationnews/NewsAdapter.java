@@ -47,10 +47,7 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
         TextView sectionNameTV = newsListItem.findViewById(R.id.section_tv);
         sectionNameTV.setText(currentNewsObject.getmSectionName());
         TextView authorTV = newsListItem.findViewById(R.id.author_tv);
-        if(currentNewsObject.getmAuthor() == null) {
-            authorTV.setVisibility(View.GONE);
-        } else {
-            authorTV.setVisibility(View.VISIBLE);
+        if (currentNewsObject.getmAuthor() != null) {
             authorTV.setText(currentNewsObject.getmAuthor());
         }
 

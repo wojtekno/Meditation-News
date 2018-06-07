@@ -24,8 +24,8 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsObject>> {
     @Override
     public List<NewsObject> loadInBackground() {
         Log.e(LOG_TAG, "loadInBackground");
-        List<NewsObject> newsObjectList = QueryUtils.doEverything(url);
-//        Log.e(LOG_TAG, "value of newsObjectList[0]" + newsObjectList.get(0));
+        if (url == null) return null;
+        List<NewsObject> newsObjectList = QueryUtils.fetchNewsData(url);
         return newsObjectList;
     }
 }

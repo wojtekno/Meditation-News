@@ -1,7 +1,6 @@
 package com.example.wojtek.meditationnews;
 
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +25,29 @@ public final class QueryUtils {
 
     }
 
-    public static List<NewsObject> doEverything(String urlString) {
-        URL url = makeURL(urlString);
-        List<NewsObject> newsObjectList = null;
+    public static List<NewsObject> fetchNewsData(String urlString) {
         try {
-            newsObjectList = extractNewsFromData(fetchData(url));
-        } catch (IOException e) {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        URL url = makeURL(urlString);
+
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpReq(url);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+        }
+
+        List<NewsObject> newsObjectList = extractNewsFromData(jsonResponse);
         return newsObjectList;
     }
 
-    public static List<NewsObject> extractNewsFromData(String jsonResponseString) {
+    private static List<NewsObject> extractNewsFromData(String jsonResponseString) {
+        if (jsonResponseString == null) return null;
+
         List<NewsObject> newsObjectList = new ArrayList<NewsObject>();
         try {
             JSONObject mainJSONObject = new JSONObject(jsonResponseString);
@@ -50,29 +61,23 @@ public final class QueryUtils {
                 String url = resultObject.getString("webUrl");
                 String date = resultObject.getString("webPublicationDate");
                 String author = null;
-                if (resultObject.has("author")){
+                if (resultObject.has("author")) {
                     author = resultObject.getString("author");
                 }
                 String sectionName = null;
-                if (resultObject.has("sectionName")){
+                if (resultObject.has("sectionName")) {
                     sectionName = resultObject.getString("sectionName");
                 }
-
-
                 newsObjectList.add(new NewsObject(title, url, date, sectionName, author));
             }
-
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "exception when extracting jsonResponse", e);
-
-        } finally {
-
+            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
         }
 
         return newsObjectList;
     }
 
-    public static URL makeURL(String urlString) {
+    private static URL makeURL(String urlString) {
         URL url = null;
         try {
             url = new URL(urlString);
@@ -83,8 +88,10 @@ public final class QueryUtils {
         return url;
     }
 
-    public static String fetchData(URL url) throws IOException {
-        String stringJSONResponse = null;
+    private static String makeHttpReq(URL url) throws IOException {
+        String stringJsonResponse = null;
+        if (url == null) return stringJsonResponse;
+
         HttpURLConnection httpURLConnection = null;
         InputStream inputStream = null;
         try {
@@ -93,39 +100,34 @@ public final class QueryUtils {
             httpURLConnection.setReadTimeout(10000);
             httpURLConnection.setConnectTimeout(15000);
             httpURLConnection.connect();
+            Log.e(LOG_TAG, "httpURLConnection.getResponseCode(): " + httpURLConnection.getResponseCode());
             if (httpURLConnection.getResponseCode() == 200) {
                 inputStream = httpURLConnection.getInputStream();
-                stringJSONResponse = readFromStream(inputStream);
+                stringJsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e(LOG_TAG, "Error response code: " + httpURLConnection.getResponseCode());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
         } finally {
             if (httpURLConnection != null) httpURLConnection.disconnect();
             if (inputStream != null) inputStream.close();
         }
 
-        return stringJSONResponse;
+        return stringJsonResponse;
     }
 
-    private static String readFromStream(InputStream inputStream) {
-        String output;
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+    private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-
-        try {
+        if (inputStream != null) {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line = bufferedReader.readLine();
-            stringBuilder.append(line);
             while (line != null) {
-                line = bufferedReader.readLine();
                 stringBuilder.append(line);
+                line = bufferedReader.readLine();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        output = stringBuilder.toString();
-        return output;
+        return stringBuilder.toString();
     }
-
-
 }
