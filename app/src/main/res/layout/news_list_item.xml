@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-
     </LinearLayout>
 
     <TextView
@@ -55,23 +54,5 @@
         android:text="Title is here so there is a lot of text and we would like to now what it does"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <LinearLayout
-        style="@style/text_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/year_tv"
-            style="@style/text_color_second"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Date like this one"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:visibility="gone" />
-
-    </LinearLayout>
 
 </LinearLayout>

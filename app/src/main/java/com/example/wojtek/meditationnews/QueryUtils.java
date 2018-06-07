@@ -20,20 +20,8 @@ import java.util.List;
 public final class QueryUtils {
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
-
-    private QueryUtils() {
-
-    }
-
     public static List<NewsObject> fetchNewsData(String urlString) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         URL url = makeURL(urlString);
-
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpReq(url);
@@ -47,7 +35,6 @@ public final class QueryUtils {
 
     private static List<NewsObject> extractNewsFromData(String jsonResponseString) {
         if (jsonResponseString == null) return null;
-
         List<NewsObject> newsObjectList = new ArrayList<NewsObject>();
         try {
             JSONObject mainJSONObject = new JSONObject(jsonResponseString);
@@ -56,7 +43,6 @@ public final class QueryUtils {
 
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject resultObject = resultsArray.getJSONObject(i);
-
                 String title = resultObject.getString("webTitle");
                 String url = resultObject.getString("webUrl");
                 String date = resultObject.getString("webPublicationDate");
@@ -82,7 +68,6 @@ public final class QueryUtils {
         try {
             url = new URL(urlString);
         } catch (MalformedURLException e) {
-//            e.printStackTrace();
             Log.e(LOG_TAG, "Problem with creating URL", e);
         }
         return url;
@@ -100,7 +85,6 @@ public final class QueryUtils {
             httpURLConnection.setReadTimeout(10000);
             httpURLConnection.setConnectTimeout(15000);
             httpURLConnection.connect();
-            Log.e(LOG_TAG, "httpURLConnection.getResponseCode(): " + httpURLConnection.getResponseCode());
             if (httpURLConnection.getResponseCode() == 200) {
                 inputStream = httpURLConnection.getInputStream();
                 stringJsonResponse = readFromStream(inputStream);

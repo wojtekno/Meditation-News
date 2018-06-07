@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,17 +19,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsObject>> {
 
-    private final String JSON_REQUEST2 = "https://content.guardianapis.com/search?order-by=newest&q=mindfulness%20AND%20meditation&api-key=test";
-    private final String LOG_TAG = MainActivity.class.getSimpleName();
-    private final String jsonRequestString = "https://content.guardianapis.com/search?q=meditation&api-key=test";
-
+    private final String JSON_REQUEST = "https://content.guardianapis.com/search?order-by=newest&q=mindfulness%20AND%20meditation&api-key=test";
     private NewsAdapter arrayAdapter;
     private View spinner;
     private TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(LOG_TAG, "OnCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -51,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         LoaderManager loaderManager = getLoaderManager();
         if (checkInternetConnection()) {
-            Log.e(LOG_TAG, "loaderManager.initLoader");
             loaderManager.initLoader(0, null, this);
         } else {
             emptyView.setText(R.string.no_internet_connection);
@@ -60,16 +54,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-
     @Override
     public Loader<List<NewsObject>> onCreateLoader(int id, Bundle args) {
-        Log.e(LOG_TAG, "onCreateLoader");
-        return new NewsLoader(this, JSON_REQUEST2);
+        return new NewsLoader(this, JSON_REQUEST);
     }
 
     @Override
     public void onLoadFinished(Loader<List<NewsObject>> loader, List<NewsObject> data) {
-        Log.e(LOG_TAG, "onLoadFinished");
         emptyView.setText(R.string.no_data);
         arrayAdapter.clear();
         spinner.setVisibility(View.GONE);
@@ -78,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<List<NewsObject>> loader) {
-        Log.e(LOG_TAG, "onLoadReset");
         arrayAdapter.clear();
     }
 
