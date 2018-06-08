@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
@@ -8,6 +9,7 @@
     android:orientation="vertical"
     android:paddingBottom="4dp"
     android:paddingTop="4dp">
+
 
     <LinearLayout
         style="@style/text_margin"
@@ -23,14 +25,15 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Bring your style to workplace" />
+            tools:text="Walk and observe wherever you are" />
 
         <TextView
             android:id="@+id/author_tv"
             style="@style/text_color_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp" />
+            android:layout_marginLeft="16dp"
+            tools:text="J. Olivier" />
 
         <TextView
             android:id="@+id/month_tv"
@@ -38,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            tools:text="January 29" />
 
     </LinearLayout>
 
@@ -52,8 +55,6 @@
         android:layout_weight="3"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="Title is here so there is a lot of text and we would like to now what it does"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
+        tools:text="Title is here so there is a lot of text and we would like to now how it all works out and behave" />
 
 </LinearLayout>

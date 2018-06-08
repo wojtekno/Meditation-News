@@ -19,6 +19,8 @@ import java.util.List;
 
 public final class QueryUtils {
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    private final static int URL_READ_TIME_OUT = 10000;
+    private final static int URL_CONNECTION_TIME_OUT = 15000;
 
     public static List<NewsObject> fetchNewsData(String urlString) {
         URL url = makeURL(urlString);
@@ -87,8 +89,8 @@ public final class QueryUtils {
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setReadTimeout(10000);
-            httpURLConnection.setConnectTimeout(15000);
+            httpURLConnection.setReadTimeout(URL_READ_TIME_OUT);
+            httpURLConnection.setConnectTimeout(URL_CONNECTION_TIME_OUT);
             httpURLConnection.connect();
             if (httpURLConnection.getResponseCode() == 200) {
                 inputStream = httpURLConnection.getInputStream();
