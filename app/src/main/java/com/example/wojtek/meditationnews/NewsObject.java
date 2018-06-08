@@ -1,11 +1,5 @@
 package com.example.wojtek.meditationnews;
 
-import android.util.Log;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class NewsObject {
     private final String LOG_TAG = NewsObject.class.getSimpleName();
 
@@ -13,14 +7,16 @@ public class NewsObject {
     private String mUrl;
     private String mDate;
     private String mSectionName;
-    private String mAuthor;
+    private String mAuthorFirstName;
+    private String mAuthorLastName;
 
-    public NewsObject(String title, String url, String date, String sectionName, String author) {
+    public NewsObject(String title, String url, String date, String sectionName, String authorFisrtName, String authorLastName) {
         mTitle = title;
         mUrl = url;
         mDate = date;
         mSectionName = sectionName;
-        mAuthor = author;
+        mAuthorFirstName = authorFisrtName;
+        mAuthorLastName = authorLastName;
     }
 
     public String getmTitle() {
@@ -39,8 +35,11 @@ public class NewsObject {
         return mSectionName;
     }
 
-    public String getmAuthor() {
-        return mAuthor;
+    public String getmAuthorFirstName() {
+        return mAuthorFirstName;
     }
 
+    public String getmAuthorLastName() {
+        return mAuthorLastName;
+    }
 }

@@ -28,15 +28,16 @@
         <TextView
             android:id="@+id/author_tv"
             style="@style/text_color_second"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/month_tv"
             style="@style/text_color_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </LinearLayout>

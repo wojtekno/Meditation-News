@@ -3,6 +3,7 @@ package com.example.wojtek.meditationnews;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,22 +35,25 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
         titleTV.setText(currentNewsObject.getmTitle());
 
         TextView monthTV = newsListItem.findViewById(R.id.month_tv);
-        if (currentDate != null) {
-            monthTV.setText(getMonthAndDayToPrint(currentDate));
-        }
+        monthTV.setText(getMonthAndDayToPrint(currentDate));
+
         TextView sectionNameTV = newsListItem.findViewById(R.id.section_tv);
         sectionNameTV.setText(currentNewsObject.getmSectionName());
 
         TextView authorTV = newsListItem.findViewById(R.id.author_tv);
-        if (currentNewsObject.getmAuthor() != null) {
-            authorTV.setText(currentNewsObject.getmAuthor());
-        }
+        String firstName = currentNewsObject.getmAuthorFirstName();
+        String lastName = currentNewsObject.getmAuthorLastName();
+        authorTV.setText(getAuthorNameToPrint(firstName, lastName));
+
 
         return newsListItem;
     }
 
 
     private String getMonthAndDayToPrint(String mDate) {
+        if (mDate == null || mDate.equals("")) {
+            return null;
+        }
         int length = mDate.length();
         String sDate1 = mDate.substring(0, length - 1);
         Date date1 = null;
@@ -60,5 +64,22 @@ public class NewsAdapter extends ArrayAdapter<NewsObject> {
         }
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd");
         return formatter.format(date1);
+    }
+
+    private String getAuthorNameToPrint(String firstName, String lastName) {
+        if ((firstName == null || firstName.equals("")) & (lastName == null || lastName.equals(""))) {
+            return null;
+        } else if (firstName == null || firstName.equals("")) {
+            lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+            return lastName;
+        } else if (lastName == null || lastName.equals("")) {
+            firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
+            return firstName;
+        } else {
+            firstName = firstName.substring(0, 1).toUpperCase();
+            lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+            String output = String.format("%s. %s", firstName, lastName);
+            return output;
+        }
     }
 }

@@ -46,15 +46,20 @@ public final class QueryUtils {
                 String title = resultObject.getString("webTitle");
                 String url = resultObject.getString("webUrl");
                 String date = resultObject.getString("webPublicationDate");
-                String author = null;
-                if (resultObject.has("author")) {
-                    author = resultObject.getString("author");
-                }
                 String sectionName = null;
                 if (resultObject.has("sectionName")) {
                     sectionName = resultObject.getString("sectionName");
                 }
-                newsObjectList.add(new NewsObject(title, url, date, sectionName, author));
+
+                JSONArray tagsArray = resultObject.getJSONArray("tags");
+                String authorFirstName = null;
+                String authorLastName = null;
+                if (tagsArray.length() > 0) {
+                    JSONObject contributorTag = tagsArray.getJSONObject(0);
+                    authorFirstName = contributorTag.getString("firstName");
+                    authorLastName = contributorTag.getString("lastName");
+                }
+                newsObjectList.add(new NewsObject(title, url, date, sectionName, authorFirstName, authorLastName));
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);

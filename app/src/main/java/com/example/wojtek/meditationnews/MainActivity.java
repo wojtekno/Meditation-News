@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsObject>> {
 
-    private final String JSON_REQUEST = "https://content.guardianapis.com/search?order-by=newest&q=mindfulness%20AND%20meditation&api-key=test";
+    private final String JSON_REQUEST = "https://content.guardianapis.com/search?show-tags=contributor&order-by=newest&q=mindfulness%20AND%20meditation&api-key=test";
     private NewsAdapter arrayAdapter;
     private View spinner;
     private TextView emptyView;
