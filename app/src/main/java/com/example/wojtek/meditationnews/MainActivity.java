@@ -1,14 +1,20 @@
 package com.example.wojtek.meditationnews;
 
 import android.app.LoaderManager;
+import android.arch.lifecycle.livedata.core.BuildConfig;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,10 +25,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsObject>> {
 
-    private final String JSON_REQUEST = "https://content.guardianapis.com/search?show-tags=contributor&order-by=newest&q=mindfulness%20AND%20meditation&api-key=test";
+    private final String GUARDIAN_API_KEY = com.example.wojtek.meditationnews.BuildConfig.GuardianApiKey;
+    private final String JSON_EDITABLE = "https://content.guardianapis.com/search?show-tags=contributor&q=meditation%20AND%20mindfulness&api-key=" + GUARDIAN_API_KEY;
     private NewsAdapter arrayAdapter;
     private View spinner;
     private TextView emptyView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +64,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<NewsObject>> onCreateLoader(int id, Bundle args) {
-        return new NewsLoader(this, JSON_REQUEST);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
+        String showSections = sharedPrefs.getString(getString(R.string.settings_show_sections_key), getString(R.string.settings_show_sections_default));
+        String pageSize = sharedPrefs.getString(getString(R.string.settings_page_size_key), getString(R.string.settings_page_size_default));
+
+        Uri baseUri = Uri.parse(JSON_EDITABLE);
+        Log.e("MainActivity", "basUri: " + baseUri.toString());
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        Log.e("MainActivity", "before - uriBuilder: " + uriBuilder.toString());
+
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("page-size", pageSize);
+        if (!showSections.equals("")) {
+            uriBuilder.appendQueryParameter("section", showSections);
+        }
+
+        Log.e("MainActivity", "uriBuilder: " + uriBuilder.toString());
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -89,5 +116,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 activeNetwork.isConnectedOrConnecting();
 
         return isConnected;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

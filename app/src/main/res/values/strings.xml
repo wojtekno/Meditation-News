@@ -2,4 +2,35 @@
     <string name="app_name">MeditationNews</string>
     <string name="no_data">No data to display.\nTry again - close and open the app.</string>
     <string name="no_internet_connection">No internet connection\nMake sure your data is "on" or you\'re connected to WiFi\nThen close and open the app again.</string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+    <string name="settings_main_menu">Settings</string>
+
+    <string name="settings_order_by_label">Order by</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_relevance_value</string>
+
+    <string name="settings_order_by_newest_label">newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <string name="settings_order_by_relevance_label">relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <string name="settings_show_sections_label">Show section</string>
+    <string name="settings_show_sections_key" translatable="false">show_section</string>
+    <string name="settings_show_sections_default" translatable="false">@string/settings_show_sections_all_value</string>
+
+    <string name="settings_show_sections_lifeandstyle_label">life and style</string>
+    <string name="settings_show_sections_lifeandstyle_value" translatable="false">lifeandstyle</string>
+
+    <string name="settings_show_sections_all_label">all</string>
+    <string name="settings_show_sections_all_value"></string>
+
+    <string name="settings_page_size_label">Number of items to show</string>
+    <string name="settings_page_size_key" translatable="false">page_size</string>
+    <string name="settings_page_size_default" translatable="false">10</string>
+
+
+
 </resources>
