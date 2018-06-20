@@ -71,10 +71,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         String pageSize = sharedPrefs.getString(getString(R.string.settings_page_size_key), getString(R.string.settings_page_size_default));
 
         Uri baseUri = Uri.parse(JSON_EDITABLE);
-        Log.e("MainActivity", "basUri: " + baseUri.toString());
         Uri.Builder uriBuilder = baseUri.buildUpon();
-
-        Log.e("MainActivity", "before - uriBuilder: " + uriBuilder.toString());
 
         uriBuilder.appendQueryParameter("order-by", orderBy);
         uriBuilder.appendQueryParameter("page-size", pageSize);
@@ -82,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             uriBuilder.appendQueryParameter("section", showSections);
         }
 
-        Log.e("MainActivity", "uriBuilder: " + uriBuilder.toString());
         return new NewsLoader(this, uriBuilder.toString());
     }
 
